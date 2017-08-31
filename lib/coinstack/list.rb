@@ -45,26 +45,4 @@ module Coinstack
       File.open(DEFAULT_LOCATION, 'w') { |f| f.write user_pairs.to_yaml }
     end
   end
-
-  # Object representing a single entry of the list
-  class Pair
-    attr_accessor :id,
-                  :description,
-                  :due_date,
-                  :added_date,
-                  :labels
-
-    def initialize(options = {})
-      options.each { |trait, value| public_send("#{trait}=", value) }
-      self.labels ||= []
-    end
-
-    def to_s
-      description.to_s.capitalize + " | Due: #{due_date}"
-    end
-
-    def to_h
-
-    end
-  end
 end
