@@ -8,7 +8,7 @@ module Coinstack
   # Object for reading and writing our list
   class List
     attr_accessor :pairs, # hash of hashes like { btc: {}, ltc: {} }
-                  :user_pairs # hash like { btc: 12 } 
+                  :user_pairs # hash like { btc: 12 }
 
     PAIRS_URI = URI('https://api.coinmarketcap.com/v1/ticker/')
     DEFAULT_LOCATION = (File.dirname(__FILE__) + '/.coinstack-pairs').freeze
@@ -17,7 +17,7 @@ module Coinstack
       self.pairs = {}
       update_pairs!
       FileUtils.touch(DEFAULT_LOCATION) # Ensures it exists
-      self.user_pairs = YAML.load_file(DEFAULT_LOCATION) || {}
+      self.user_pairs = YAML.load_file(DEFAULT_LOCATION) || { 'BTC' => 10.00, 'ETH' => 1.00 }
     end
 
     def update_pairs!

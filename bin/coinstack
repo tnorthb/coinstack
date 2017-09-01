@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require 'coinstack'
+require_relative '../lib/coinstack'
 
 interface = Coinstack::Interface.new
 interface.start
