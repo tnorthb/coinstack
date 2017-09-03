@@ -35,18 +35,21 @@ module Coinstack
     end
 
     def prompt_add_asset
-      to_add = { amount: nil, symbol: nil }
+      symbol = nil
+      amount = nil
 
       loop do
-        if list.pairs[to_add[:symbol]] && to_add[:amount]
-          list.add(to_add)
-          to_add = { amount: nil, symbol: nil }
-        elsif list.pairs[to_add[:symbol]]
-          to_add[:amount] = cli.ask("Enter the amount of #{to_add[:symbol]} you have.", Float)
+        cli.say('That symbol is not available') if symbol && list.pairs[symbol].nil?
+        if list.pairs[symbol] && amount
+          list.add(symbol, amount)
+          symbol = nil
+          amount = nil
+        elsif list.pairs[symbol]
+          amount = cli.ask("Enter the amount of #{symbol} you have:", Float)
         else
-          to_add[:symbol] = cli.ask('Enter the symbol of the asset to add, or leave blank to exit', String).upcase
+          symbol = cli.ask('Enter a valid asset ticker symbol, or leave blank:', String).upcase
         end
-        break if to_add[:symbol].nil?
+        break if symbol == ''
       end
       start
     end
